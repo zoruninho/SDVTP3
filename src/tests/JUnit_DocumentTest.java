@@ -74,11 +74,26 @@ public class JUnit_DocumentTest {
 	}
 	
 	@Test(expected=OperationImpossible.class)
-	public void restituerBeforeEmprunter() 
+	public void testRestituerBeforeEmprunter() 
 	throws OperationImpossible, InvariantBroken {
 		Assert.assertTrue(d1.invariant());
 		Assert.assertTrue(!d1.estEmprunte());
 		d1.restituer();
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testDoubleEmprunt() 
+	throws OperationImpossible, InvariantBroken {
+		Assert.assertTrue(d1.invariant());
+		d1.emprunter();
+		d1.emprunter();
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void testGenreNull()
+	throws OperationImpossible, InvariantBroken {
+		Document d2 = new Video("Test_code2", l, "Test_titre2", "Test_auteur2",
+				"Test_annee2", null, 140, "Test_mentionLegale2");
 	}
 
 }
