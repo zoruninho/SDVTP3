@@ -1,14 +1,16 @@
 package tests;
 
-import mediatheque.Genre;
-import mediatheque.Localisation;
-import mediatheque.document.Document;
-import mediatheque.document.Video;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import mediatheque.Genre;
+import mediatheque.Localisation;
+import mediatheque.OperationImpossible;
+import mediatheque.document.Document;
+import mediatheque.document.Video;
+import util.InvariantBroken;
 
 /**
  * Test Document Using JUnit
@@ -59,16 +61,24 @@ public class JUnit_DocumentTest {
 		d1.metEmpruntable();
 		Assert.assertTrue(d1.invariant());
 		d1.emprunter();
+		d1.restituer();
+		d1.emprunter();
+		d1.restituer();
+		d1.emprunter();
+		d1.restituer();
+		d1.emprunter();
+		d1.restituer();
+		d1.emprunter();
 		Assert.assertTrue(d1.invariant());
-		d1.restituer();
-		d1.emprunter();
-		d1.restituer();
-		d1.emprunter();
-		d1.restituer();
-		d1.emprunter();
-		d1.restituer();
-		d1.emprunter();
 		Assert.assertEquals(5, d1.getNbEmprunts());
+	}
+	
+	@Test(expected=OperationImpossible.class)
+	public void restituerBeforeEmprunter() 
+	throws OperationImpossible, InvariantBroken {
+		Assert.assertTrue(d1.invariant());
+		Assert.assertTrue(!d1.estEmprunte());
+		d1.restituer();
 	}
 
 }
