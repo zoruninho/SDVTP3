@@ -60,9 +60,13 @@ public class JUnit_DocumentTest {
 		Assert.assertTrue(d1.invariant());
 		d1.emprunter();
 		Assert.assertTrue(d1.invariant());
+		d1.restituer();
 		d1.emprunter();
+		d1.restituer();
 		d1.emprunter();
+		d1.restituer();
 		d1.emprunter();
+		d1.restituer();
 		d1.emprunter();
 		Assert.assertEquals(5, d1.getNbEmprunts());
 	}
