@@ -176,9 +176,10 @@ public final class FicheEmprunt implements Serializable {
 	 * @return duree d'emprunt
 	 */
 	public int getDureeEmprunt() {
-		return (int) ((dateLimite.getTime() - dateEmprunt.getTime()) 
-				/ (Datutil.MILLISINSEC * Datutil.SECSINMIN 
-						* Datutil.MINSINHOUR * Datutil.HOURSINDAY));
+		return (int) Math.round(((dateLimite.getTime() - dateEmprunt.getTime()) 
+				/ ((double)Datutil.MILLISINSEC * Datutil.SECSINMIN 
+						* Datutil.MINSINHOUR * Datutil.HOURSINDAY)));
+
 	}
 	/**
 	 * retourne le tarif d'emprunt calcule à partir du tarifnominal du 

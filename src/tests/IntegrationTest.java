@@ -14,6 +14,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import util.Datutil;
 import util.InvariantBroken;
 
 /**
@@ -61,8 +62,8 @@ public class IntegrationTest {
 		Assert.assertEquals(1, c1.getNbEmpruntsEffectues());
 		Assert.assertEquals(1, g.getNbEmprunts());
 		// check that the duration and paiement information are ok
-		Assert.assertTrue(f1.getDureeEmprunt() == 14);
-		Assert.assertTrue( f1.getTarifEmprunt() == 1.5);
+		Assert.assertEquals(f1.getDureeEmprunt(),14);
+		Assert.assertTrue(f1.getTarifEmprunt() == 1.5);
 	}
 
 	@Test(expected = OperationImpossible.class)
@@ -71,6 +72,28 @@ public class IntegrationTest {
 		// INTEGRATION TEST 2 - Emprunter - co-ordination when Document not
 		// empruntable
 		new FicheEmprunt(c1, d1);
+	}
+	
+	@Test
+	public void testRenduATemps()
+	throws OperationImpossible, InvariantBroken {
+		d1.metEmpruntable();
+		FicheEmprunt f2 = new FicheEmprunt(c1, d1);
+		int nbEmpruntsAvantRestitution = c1.getNbEmpruntsEnCours();
+		f2.restituer();
+		Assert.assertTrue(!d1.estEmprunte());
+		Assert.assertTrue(d1.estEmpruntable());
+		Assert.assertEquals(c1.getNbEmpruntsEnCours(), nbEmpruntsAvantRestitution-1);
+	}
+	
+	@Test
+	public void testRenduEnRetard()
+	throws OperationImpossible, InvariantBroken {
+		d1.metEmpruntable();
+		FicheEmprunt f3 = new FicheEmprunt(c1, d1);
+		Datutil.addAuJour(15);
+		Assert.assertTrue(f3.verifier());
+		Assert.assertTrue(f3.premierRappel());
 	}
 
 }
