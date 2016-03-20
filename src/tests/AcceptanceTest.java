@@ -142,5 +142,20 @@ public class AcceptanceTest {
 		m1.emprunter("nom1", "prenom1", "Nom_empruntable");
 		Assert.fail("Emprunter un document non empruntable doit lever l'exception OperationImpossible");
 	}
+	
+	/**
+	 * Test number 6, tries to borrow an unavailable document
+	 * Should raise an OperationImpossible
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
+	@Test(expected = OperationImpossible.class)
+	public void emprunterDocumentNonDisponible()
+	throws OperationImpossible, InvariantBroken {
+		m1.emprunter("nom1", "prenom1", "Test_code1");
+		m1.emprunter("nom2", "prenom2", "Test_code1");
+		Assert.fail("Emprunter un document indisponible doit lever l'exception OperationImpossible");
+	}
 }
 
