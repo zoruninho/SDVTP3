@@ -115,9 +115,20 @@ public class AcceptanceTest {
 		Assert.assertFalse(c1.peutEmprunter());
 	}
 
-/*TODO 
- * faire les autres tests
- */
+	/**
+	 * Test number 4, tries to borrow a document that doesn't exist
+	 * Should raise an OperationImpossible
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
+	@Test(expected = OperationImpossible.class)
+	public void emprunterDocumentInexistant()
+	throws OperationImpossible, InvariantBroken {
+		m1.emprunter("nom1", "prenom1", "Test98");
+		Assert.fail("Emprunter un document inexistant doit lever l'exception OperationImpossible");
+	}
 
+	
 }
 
