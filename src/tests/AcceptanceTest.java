@@ -193,5 +193,31 @@ public class AcceptanceTest {
 		Assert.assertTrue(c1.peutEmprunter());
 		m1.emprunter("nom1", "prenom1", "Test_code1");
 	}
+	
+	/**
+	 * Tries to remove a Genre that has some documents refering to it
+	 * Should return an OperationImpossible
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
+	@Test(expected = OperationImpossible.class)
+	public void supprimerGenreAvecDocuments()
+	throws OperationImpossible, InvariantBroken {
+		m1.supprimerGenre("Test_genre1");
+	}
+	
+	/**
+	 * Tries to remove a Genre that has no documents refering to it
+	 * Should not return an error
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
+	@Test()
+	public void supprimerGenreSansDocuments()
+	throws OperationImpossible, InvariantBroken {
+		m1.supprimerGenre("Test_genre2");
+	}
 }
 
