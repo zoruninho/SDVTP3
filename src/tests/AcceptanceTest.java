@@ -114,6 +114,28 @@ public class AcceptanceTest {
 		m1.verifier();
 		Assert.assertFalse(c1.peutEmprunter());
 	}
+	
+	/**
+	 * Test number 3, tries to borrow too many documents
+	 * Should raise an OperationImpossible
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
+	@Test(expected = OperationImpossible.class)
+	public void emprunterTropDeDocuments()
+	throws OperationImpossible, InvariantBroken {
+		Client c1 = m1.chercherClient("nom1", "prenom1");
+		Assert.assertTrue(c1.peutEmprunter());
+		
+		//The client can only borrows 2 documents
+		m1.emprunter("nom1", "prenom1", "Test_code1");
+		m1.emprunter("nom1", "prenom1", "Test_code2");
+		
+		//Tries to borrow a third one
+		m1.emprunter("nom1", "prenom1", "Test_code3");
+		Assert.fail("Emprunter trop de documents doit lever l'exception OperationImpossible");
+	}
 
 	/**
 	 * Test number 4, tries to borrow a document that doesn't exist
