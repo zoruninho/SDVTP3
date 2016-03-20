@@ -74,6 +74,13 @@ public class IntegrationTest {
 		new FicheEmprunt(c1, d1);
 	}
 	
+	/**
+	 * Borrows a document and then gives it back on time
+	 * No errors should be raised
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
 	@Test
 	public void testRenduATemps()
 	throws OperationImpossible, InvariantBroken {
@@ -86,6 +93,13 @@ public class IntegrationTest {
 		Assert.assertEquals(c1.getNbEmpruntsEnCours(), nbEmpruntsAvantRestitution-1);
 	}
 	
+	/**
+	 * Borrows a document and then gives it back late
+	 * No errors should be raised
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
 	@Test
 	public void testRenduEnRetard()
 	throws OperationImpossible, InvariantBroken {

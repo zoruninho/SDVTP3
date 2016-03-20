@@ -56,6 +56,12 @@ public class JUnit_DocumentTest {
 		Assert.assertTrue(d1.invariant());
 	}
 	
+	/**
+	 * Checks that a client can borrow five times and that nbEmprunts 
+	 * changes correctly
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void testCinqEmprunts() throws Exception {
 		d1.metEmpruntable();
@@ -73,6 +79,13 @@ public class JUnit_DocumentTest {
 		Assert.assertEquals(5, d1.getNbEmprunts());
 	}
 	
+	/**
+	 * Tries to give back a document before borrowing it
+	 * Should return an OperationImpossible
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
 	@Test(expected=OperationImpossible.class)
 	public void testRestituerBeforeEmprunter() 
 	throws OperationImpossible, InvariantBroken {
@@ -81,6 +94,13 @@ public class JUnit_DocumentTest {
 		d1.restituer();
 	}
 	
+	/**
+	 * Tries to borrow twice the same document
+	 * Should return an OperationImpossible
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
 	@Test(expected=OperationImpossible.class)
 	public void testDoubleEmprunt() 
 	throws OperationImpossible, InvariantBroken {
@@ -89,6 +109,13 @@ public class JUnit_DocumentTest {
 		d1.emprunter();
 	}
 	
+	/**
+	 * Tries to create a document with a null Genre
+	 * Should return an OperationImpossible
+	 * 
+	 * @throws OperationImpossible
+	 * @throws InvariantBroken
+	 */
 	@Test(expected=OperationImpossible.class)
 	public void testGenreNull()
 	throws OperationImpossible, InvariantBroken {
